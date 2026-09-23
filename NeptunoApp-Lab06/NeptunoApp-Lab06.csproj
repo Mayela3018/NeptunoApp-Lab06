@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net10.0-windows</TargetFramework>
+		<RootNamespace>NeptunoApp_Lab06</RootNamespace>
+		<Nullable>disable</Nullable>
+		<!-- ← CAMBIO CLAVE: de "enable" a "disable" -->
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UseWPF>true</UseWPF>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="System.Configuration.ConfigurationManager" Version="10.0.12" />
+		<!-- Si ya instalaste Microsoft.Data.SqlClient, usa esta línea en vez de la de abajo: -->
+		<!-- <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.0" /> -->
+		<PackageReference Include="System.Data.SqlClient" Version="4.9.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\NeptunoApp.Data\NeptunoApp.Data.csproj" />
+	</ItemGroup>
+
+</Project>
