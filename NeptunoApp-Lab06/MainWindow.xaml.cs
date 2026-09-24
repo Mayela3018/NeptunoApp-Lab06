@@ -31,5 +31,10 @@ namespace NeptunoApp_Lab06
         {
             MainContent.Content = new VistaPedidos();
         }
+
+        private void BtnReportes_Click(object sender, RoutedEventArgs e)
+        {
+            MainContent.Content = new VistaReportes();
+        }
     }
 }

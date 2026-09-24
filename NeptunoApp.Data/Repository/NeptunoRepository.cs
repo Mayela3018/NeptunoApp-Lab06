@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Data;
-using System.Data.SqlClient;  // ← ESTE es el correcto (NO Microsoft)
+using System.Data.SqlClient;  
 using System.Threading.Tasks;
 using NeptunoApp.Data.Helpers;
 using NeptunoApp.Data.Models;
@@ -149,6 +149,36 @@ namespace NeptunoApp.Data.Repository
                 new SqlParameter("@FechaInicio", fechaInicio),
                 new SqlParameter("@FechaFin", fechaFin)
             });
+        }
+
+        // ================= CLIENTES =================
+        public async Task<DataSet> GetClientesAsync()
+        {
+            return await DatabaseHelper.ExecuteQueryAsync(
+                "SELECT ClienteID, Empresa FROM Clientes ORDER BY Empresa",
+                null,
+                CommandType.Text);
+        }
+
+        // ================= EMPLEADOS =================
+        public async Task<DataSet> GetEmpleadosAsync()
+        {
+            
+            return await DatabaseHelper.ExecuteQueryAsync(
+                @"SELECT EmpleadoID, 
+                 Nombre + ' ' + ISNULL(Apellidos, '') AS NombreCompleto 
+          FROM Empleados 
+          ORDER BY Nombre",
+                null,
+                CommandType.Text);
+        }
+        // ================= TRANSPORTISTAS =================
+        public async Task<DataSet> GetTransportistasAsync()
+        {
+            return await DatabaseHelper.ExecuteQueryAsync(
+                "SELECT TransportistaID, CompaniaNombre FROM Transportistas ORDER BY CompaniaNombre",
+                null,
+                CommandType.Text);
         }
     }
 }

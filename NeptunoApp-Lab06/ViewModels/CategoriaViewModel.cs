@@ -23,6 +23,7 @@ namespace NeptunoApp_Lab06.ViewModels
             CargarCommand = new RelayCommand(async _ => await CargarAsync());
             GuardarCommand = new RelayCommand(async _ => await GuardarAsync(), _ => !string.IsNullOrEmpty(NombreCategoria));
             EliminarCommand = new RelayCommand(async _ => await EliminarAsync(), _ => SelectedCategoria != null);
+            NuevoCommand = new RelayCommand(_ => Limpiar());
             _ = CargarAsync();
         }
 
@@ -34,6 +35,7 @@ namespace NeptunoApp_Lab06.ViewModels
         public ICommand CargarCommand { get; }
         public ICommand GuardarCommand { get; }
         public ICommand EliminarCommand { get; }
+        public ICommand NuevoCommand { get; }
 
         private async Task CargarAsync()
         {
@@ -78,6 +80,15 @@ namespace NeptunoApp_Lab06.ViewModels
         {
             NombreCategoria = SelectedCategoria["NombreCategoria"].ToString();
             Descripcion = SelectedCategoria["Descripcion"].ToString();
+        }
+
+        private void Limpiar()
+        {
+            SelectedCategoria = null;
+            NombreCategoria = string.Empty;
+            Descripcion = string.Empty;
+            OnPropertyChanged(nameof(NombreCategoria));
+            OnPropertyChanged(nameof(Descripcion));
         }
     }
 }

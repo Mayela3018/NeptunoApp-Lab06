@@ -33,6 +33,10 @@
                 <Button Content="📋 Pedidos" Click="BtnPedidos_Click" FontSize="16" Padding="20,15" 
                         HorizontalContentAlignment="Left" Cursor="Hand" Background="Transparent" 
                         Foreground="#df95ba" BorderThickness="0"/>
+                <Button Content="📊 Reportes" Click="BtnReportes_Click" FontSize="16" Padding="20,15" 
+        HorizontalContentAlignment="Left" Cursor="Hand" Background="Transparent" 
+        Foreground="#df95ba" BorderThickness="0"/>
+                
             </StackPanel>
         </Border>
 

@@ -13,6 +13,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <!-- Filtros de Búsqueda -->
         <GroupBox Header="Filtros de Búsqueda" Grid.Row="0" Padding="10" Margin="0,0,0,10"
                   BorderBrush="#81488a" BorderThickness="2">
             <Grid>
@@ -33,6 +34,7 @@
             </Grid>
         </GroupBox>
 
+        <!-- Formulario de Mantenimiento -->
         <GroupBox Header="Mantenimiento de Proveedores" Grid.Row="1" Padding="10" Margin="0,0,0,10"
                   BorderBrush="#81488a" BorderThickness="2">
             <Grid>
@@ -44,8 +46,11 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
+                <!-- Fila 1 -->
                 <StackPanel Grid.Column="0" Grid.Row="0" Margin="5">
                     <TextBlock Text="Compañía:" FontWeight="Bold" Foreground="#81488a"/>
                     <TextBox Text="{Binding CompaniaNombre, UpdateSourceTrigger=PropertyChanged}" 
@@ -55,17 +60,49 @@
                     <TextBlock Text="Contacto:" FontWeight="Bold" Foreground="#81488a"/>
                     <TextBox Text="{Binding NombreContacto}" Padding="5" Margin="0,5,0,0"/>
                 </StackPanel>
+
+                <!-- Fila 2 -->
                 <StackPanel Grid.Column="0" Grid.Row="1" Margin="5">
+                    <TextBlock Text="Cargo:" FontWeight="Bold" Foreground="#81488a"/>
+                    <TextBox Text="{Binding CargoContacto}" Padding="5" Margin="0,5,0,0"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Grid.Row="1" Margin="5">
+                    <TextBlock Text="Dirección:" FontWeight="Bold" Foreground="#81488a"/>
+                    <TextBox Text="{Binding Direccion}" Padding="5" Margin="0,5,0,0"/>
+                </StackPanel>
+
+                <!-- Fila 3 -->
+                <StackPanel Grid.Column="0" Grid.Row="2" Margin="5">
                     <TextBlock Text="Ciudad:" FontWeight="Bold" Foreground="#81488a"/>
                     <TextBox Text="{Binding Ciudad}" Padding="5" Margin="0,5,0,0"/>
                 </StackPanel>
-                <StackPanel Grid.Column="1" Grid.Row="1" Margin="5">
+                <StackPanel Grid.Column="1" Grid.Row="2" Margin="5">
+                    <TextBlock Text="Código Postal:" FontWeight="Bold" Foreground="#81488a"/>
+                    <TextBox Text="{Binding CodigoPostal}" Padding="5" Margin="0,5,0,0"/>
+                </StackPanel>
+
+                <!-- Fila 4 -->
+                <StackPanel Grid.Column="0" Grid.Row="3" Margin="5">
+                    <TextBlock Text="País:" FontWeight="Bold" Foreground="#81488a"/>
+                    <TextBox Text="{Binding Pais}" Padding="5" Margin="0,5,0,0"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Grid.Row="3" Margin="5">
                     <TextBlock Text="Teléfono:" FontWeight="Bold" Foreground="#81488a"/>
                     <TextBox Text="{Binding Telefono}" Padding="5" Margin="0,5,0,0"/>
                 </StackPanel>
 
-                <StackPanel Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" 
-                            Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+                <!-- Fila 5 -->
+                <StackPanel Grid.Column="0" Grid.Row="4" Margin="5">
+                    <TextBlock Text="Fax:" FontWeight="Bold" Foreground="#81488a"/>
+                    <TextBox Text="{Binding Fax}" Padding="5" Margin="0,5,0,0"/>
+                </StackPanel>
+
+                <!-- Fila 6 - Botones -->
+                <StackPanel Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" 
+                            Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,60,0,0">
+                    <Button Content="➕ Nuevo" Command="{Binding NuevoCommand}" 
+                            Width="120" Margin="5" Padding="10,5" 
+                            Background="#2ecc71" Foreground="White" FontWeight="Bold"/>
                     <Button Content="💾 Guardar" Command="{Binding GuardarCommand}" 
                             Width="120" Margin="5" Padding="10,5" 
                             Background="#81488a" Foreground="White" FontWeight="Bold"/>
@@ -79,6 +116,7 @@
             </Grid>
         </GroupBox>
 
+        <!-- Tabla de Proveedores -->
         <DataGrid Grid.Row="2" ItemsSource="{Binding ProveedoresDT}" 
                   SelectedItem="{Binding SelectedProveedor}" 
                   AutoGenerateColumns="True" 

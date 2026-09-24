@@ -1,6 +1,6 @@
 ﻿using System.Configuration;
 using System.Data;
-using System.Data.SqlClient;  // ← ESTE es el correcto (NO Microsoft)
+using System.Data.SqlClient;
 using System.Threading.Tasks;
 
 namespace NeptunoApp.Data.Helpers
@@ -10,13 +10,13 @@ namespace NeptunoApp.Data.Helpers
         private static string ConnectionString =>
             ConfigurationManager.ConnectionStrings["NeptunoDB"].ConnectionString;
 
-        public static async Task<DataSet> ExecuteQueryAsync(string spName, SqlParameter[] parameters)
+        public static async Task<DataSet> ExecuteQueryAsync(string queryOrSpName, SqlParameter[] parameters, CommandType commandType = CommandType.StoredProcedure)
         {
             using (SqlConnection conn = new SqlConnection(ConnectionString))
             {
-                using (SqlCommand cmd = new SqlCommand(spName, conn))
+                using (SqlCommand cmd = new SqlCommand(queryOrSpName, conn))
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandType = commandType; // <-- AQUÍ ESTÁ EL CAMBIO CLAVE
                     if (parameters != null) cmd.Parameters.AddRange(parameters);
 
                     using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))

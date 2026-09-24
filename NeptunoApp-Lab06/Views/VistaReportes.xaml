@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="NeptunoApp_Lab06.Views.VistaReportes"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" d:DesignHeight="600" d:DesignWidth="800">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Filtros de Fecha -->
+        <GroupBox Header="Reporte de Pedidos por Fechas" Grid.Row="0" Padding="15" Margin="0,0,0,15"
+                  BorderBrush="#81488a" BorderThickness="2">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Margin="5">
+                    <TextBlock Text="Fecha Inicio:" FontWeight="Bold" Foreground="#81488a"/>
+                    <DatePicker SelectedDate="{Binding FechaInicio}" Padding="5" Margin="0,5,0,0"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Margin="5">
+                    <TextBlock Text="Fecha Fin:" FontWeight="Bold" Foreground="#81488a"/>
+                    <DatePicker SelectedDate="{Binding FechaFin}" Padding="5" Margin="0,5,0,0"/>
+                </StackPanel>
+
+                <Button Grid.Column="2" Content="📊 Generar Reporte" 
+                        Command="{Binding GenerarReporteCommand}" 
+                        Width="150" Margin="15,22,5,0" Padding="10,5"
+                        Background="#81488a" Foreground="White" FontWeight="Bold"/>
+            </Grid>
+        </GroupBox>
+
+        <!-- Tabla de Resultados (Modo Desconectado) -->
+        <DataGrid Grid.Row="1" ItemsSource="{Binding ReporteDT}" 
+                  AutoGenerateColumns="True" IsReadOnly="True" CanUserAddRows="False"
+                  Background="#fedae7" BorderBrush="#81488a" BorderThickness="1"/>
+    </Grid>
+</UserControl>

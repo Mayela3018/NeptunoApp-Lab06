@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="800">
+             d:DesignHeight="700" d:DesignWidth="800">
 
     <Grid Margin="20">
         <Grid.RowDefinitions>
@@ -23,24 +23,82 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <StackPanel Grid.Column="0" Margin="5">
-                    <TextBlock Text="Cliente ID:" FontWeight="Bold" Foreground="#81488a"/>
-                    <TextBox Text="{Binding ClienteID}" Padding="5" Margin="0,5,0,0"/>
+                <!-- Fila 1 -->
+                <StackPanel Grid.Column="0" Grid.Row="0" Margin="5">
+                    <TextBlock Text="Cliente:" FontWeight="Bold" Foreground="#81488a"/>
+                    <ComboBox ItemsSource="{Binding ClientesDT}" 
+                              DisplayMemberPath="Empresa" 
+                              SelectedValuePath="ClienteID" 
+                              SelectedValue="{Binding ClienteID}" 
+                              Padding="5" Margin="0,5,0,0"/>
                 </StackPanel>
-                <StackPanel Grid.Column="1" Margin="5">
-                    <TextBlock Text="Empleado ID:" FontWeight="Bold" Foreground="#81488a"/>
-                    <TextBox Text="{Binding EmpleadoID}" Padding="5" Margin="0,5,0,0"/>
+
+                <StackPanel Grid.Column="1" Grid.Row="0" Margin="5">
+                    <TextBlock Text="Empleado:" FontWeight="Bold" Foreground="#81488a"/>
+                    <ComboBox ItemsSource="{Binding EmpleadosDT}" 
+                              DisplayMemberPath="NombreCompleto" 
+                              SelectedValuePath="EmpleadoID" 
+                              SelectedValue="{Binding EmpleadoID}" 
+                              Padding="5" Margin="0,5,0,0"/>
                 </StackPanel>
-                <StackPanel Grid.Column="2" Margin="5">
+
+                <StackPanel Grid.Column="2" Grid.Row="0" Margin="5">
+                    <TextBlock Text="Transportista:" FontWeight="Bold" Foreground="#81488a"/>
+                    <ComboBox ItemsSource="{Binding TransportistasDT}" 
+                              DisplayMemberPath="CompaniaNombre" 
+                              SelectedValuePath="TransportistaID" 
+                              SelectedValue="{Binding TransportistaID}" 
+                              Padding="5" Margin="0,5,0,0"/>
+                </StackPanel>
+
+                <!-- Fila 2 -->
+                <StackPanel Grid.Column="0" Grid.Row="1" Margin="5">
                     <TextBlock Text="Fecha Pedido:" FontWeight="Bold" Foreground="#81488a"/>
                     <DatePicker SelectedDate="{Binding FechaPedido}" 
                                 Padding="5" Margin="0,5,0,0"/>
                 </StackPanel>
 
-                <StackPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" 
+                <StackPanel Grid.Column="1" Grid.Row="1" Margin="5">
+                    <TextBlock Text="Fecha Requerida:" FontWeight="Bold" Foreground="#81488a"/>
+                    <DatePicker SelectedDate="{Binding FechaRequerida}" 
+                                Padding="5" Margin="0,5,0,0"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2" Grid.Row="1" Margin="5">
+                    <TextBlock Text="Fecha Envío:" FontWeight="Bold" Foreground="#81488a"/>
+                    <DatePicker SelectedDate="{Binding FechaEnvio}" 
+                                Padding="5" Margin="0,5,0,0"/>
+                </StackPanel>
+
+                <!-- Fila 3 -->
+                <StackPanel Grid.Column="0" Grid.Row="2" Margin="5">
+                    <TextBlock Text="Destinatario:" FontWeight="Bold" Foreground="#81488a"/>
+                    <TextBox Text="{Binding Destinatario, UpdateSourceTrigger=PropertyChanged}" 
+                             Padding="5" Margin="0,5,0,0"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Grid.Row="2" Margin="5">
+                    <TextBlock Text="Ciudad Destino:" FontWeight="Bold" Foreground="#81488a"/>
+                    <TextBox Text="{Binding CiudadDestino, UpdateSourceTrigger=PropertyChanged}" 
+                             Padding="5" Margin="0,5,0,0"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2" Grid.Row="2" Margin="5">
+                    <TextBlock Text="País Destino:" FontWeight="Bold" Foreground="#81488a"/>
+                    <TextBox Text="{Binding PaisDestino, UpdateSourceTrigger=PropertyChanged}" 
+                             Padding="5" Margin="0,5,0,0"/>
+                </StackPanel>
+
+                <!-- Fila 4: Botones -->
+                <StackPanel Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" 
                             Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+                    <Button Content="➕ Nuevo" Command="{Binding NuevoCommand}" 
+                            Width="120" Margin="5" Padding="10,5" 
+                            Background="#2ecc71" Foreground="White" FontWeight="Bold"/>
                     <Button Content="💾 Guardar" Command="{Binding GuardarCommand}" 
                             Width="120" Margin="5" Padding="10,5" 
                             Background="#81488a" Foreground="White" FontWeight="Bold"/>
