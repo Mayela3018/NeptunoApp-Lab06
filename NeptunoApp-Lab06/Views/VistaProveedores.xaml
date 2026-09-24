@@ -88,7 +88,8 @@
                 </StackPanel>
                 <StackPanel Grid.Column="1" Grid.Row="3" Margin="5">
                     <TextBlock Text="Teléfono:" FontWeight="Bold" Foreground="#81488a"/>
-                    <TextBox Text="{Binding Telefono}" Padding="5" Margin="0,5,0,0"/>
+                    <TextBox Text="{Binding Telefono, UpdateSourceTrigger=PropertyChanged}" Padding="5" Margin="0,5,0,0"
+                             PreviewTextInput="Telefono_PreviewTextInput"/>
                 </StackPanel>
 
                 <!-- Fila 5 -->

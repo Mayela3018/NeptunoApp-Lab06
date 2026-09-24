@@ -27,13 +27,15 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <!-- Fila 1 -->
+                <!-- Fila 1: ComboBox EDITABLES -->
                 <StackPanel Grid.Column="0" Grid.Row="0" Margin="5">
                     <TextBlock Text="Cliente:" FontWeight="Bold" Foreground="#81488a"/>
                     <ComboBox ItemsSource="{Binding ClientesDT}" 
                               DisplayMemberPath="Empresa" 
                               SelectedValuePath="ClienteID" 
                               SelectedValue="{Binding ClienteID}" 
+                              IsEditable="True"
+                              IsTextSearchEnabled="True"
                               Padding="5" Margin="0,5,0,0"/>
                 </StackPanel>
 
@@ -43,6 +45,8 @@
                               DisplayMemberPath="NombreCompleto" 
                               SelectedValuePath="EmpleadoID" 
                               SelectedValue="{Binding EmpleadoID}" 
+                              IsEditable="True"
+                              IsTextSearchEnabled="True"
                               Padding="5" Margin="0,5,0,0"/>
                 </StackPanel>
 
@@ -52,6 +56,8 @@
                               DisplayMemberPath="CompaniaNombre" 
                               SelectedValuePath="TransportistaID" 
                               SelectedValue="{Binding TransportistaID}" 
+                              IsEditable="True"
+                              IsTextSearchEnabled="True"
                               Padding="5" Margin="0,5,0,0"/>
                 </StackPanel>
 
@@ -102,7 +108,7 @@
                     <Button Content="💾 Guardar" Command="{Binding GuardarCommand}" 
                             Width="120" Margin="5" Padding="10,5" 
                             Background="#81488a" Foreground="White" FontWeight="Bold"/>
-                    <Button Content="🗑️ Eliminar" Command="{Binding EliminarCommand}" 
+                    <Button Content="️ Eliminar" Command="{Binding EliminarCommand}" 
                             Width="120" Margin="5" Padding="10,5" 
                             Background="#e74c3c" Foreground="White" FontWeight="Bold"/>
                     <Button Content="🔄 Recargar" Command="{Binding CargarCommand}" 

@@ -34,13 +34,13 @@ namespace NeptunoApp_Lab06.ViewModels
             EliminarCommand = new RelayCommand(async _ => await EliminarAsync(), _ => SelectedPedido != null);
             NuevoCommand = new RelayCommand(_ => Limpiar());
 
-            // Cargar datos al iniciar
             _ = CargarAsync();
             _ = CargarListasDesplegablesAsync();
         }
 
         public DataTable PedidosDT { get => _pedidosDT; set { _pedidosDT = value; OnPropertyChanged(); } }
         public DataRowView SelectedPedido { get => _selectedPedido; set { _selectedPedido = value; OnPropertyChanged(); if (value != null) CargarFormulario(); } }
+
         public int? ClienteID { get => _clienteID; set { _clienteID = value; OnPropertyChanged(); } }
         public int? EmpleadoID { get => _empleadoID; set { _empleadoID = value; OnPropertyChanged(); } }
         public int? TransportistaID { get => _transportistaID; set { _transportistaID = value; OnPropertyChanged(); } }
@@ -51,7 +51,6 @@ namespace NeptunoApp_Lab06.ViewModels
         public string CiudadDestino { get => _ciudadDestino; set { _ciudadDestino = value; OnPropertyChanged(); } }
         public string PaisDestino { get => _paisDestino; set { _paisDestino = value; OnPropertyChanged(); } }
 
-        // Propiedades para los ComboBox
         public DataTable ClientesDT { get => _clientesDT; set { _clientesDT = value; OnPropertyChanged(); } }
         public DataTable EmpleadosDT { get => _empleadosDT; set { _empleadosDT = value; OnPropertyChanged(); } }
         public DataTable TransportistasDT { get => _transportistasDT; set { _transportistasDT = value; OnPropertyChanged(); } }
@@ -75,31 +74,16 @@ namespace NeptunoApp_Lab06.ViewModels
         {
             try
             {
-                // Cargar Clientes
                 var dsClientes = await _repository.GetClientesAsync();
-                if (dsClientes.Tables.Count > 0)
-                {
-                    ClientesDT = dsClientes.Tables[0];
-                }
+                if (dsClientes.Tables.Count > 0) ClientesDT = dsClientes.Tables[0];
 
-                // Cargar Empleados
                 var dsEmpleados = await _repository.GetEmpleadosAsync();
-                if (dsEmpleados.Tables.Count > 0)
-                {
-                    EmpleadosDT = dsEmpleados.Tables[0];
-                }
+                if (dsEmpleados.Tables.Count > 0) EmpleadosDT = dsEmpleados.Tables[0];
 
-                // Cargar Transportistas
                 var dsTransportistas = await _repository.GetTransportistasAsync();
-                if (dsTransportistas.Tables.Count > 0)
-                {
-                    TransportistasDT = dsTransportistas.Tables[0];
-                }
+                if (dsTransportistas.Tables.Count > 0) TransportistasDT = dsTransportistas.Tables[0];
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error cargando listas: " + ex.Message);
-            }
+            catch (Exception ex) { MessageBox.Show("Error cargando listas: " + ex.Message); }
         }
 
         private async Task GuardarAsync()
@@ -138,19 +122,45 @@ namespace NeptunoApp_Lab06.ViewModels
             }
         }
 
+        // ✅ MÉTODO CLAVE: Carga los datos del registro seleccionado en el formulario
         private void CargarFormulario()
         {
-            ClienteID = SelectedPedido["ClienteID"] != DBNull.Value ? Convert.ToInt32(SelectedPedido["ClienteID"]) : (int?)null;
-            EmpleadoID = SelectedPedido["EmpleadoID"] != DBNull.Value ? Convert.ToInt32(SelectedPedido["EmpleadoID"]) : (int?)null;
-            TransportistaID = SelectedPedido["TransportistaID"] != DBNull.Value ? Convert.ToInt32(SelectedPedido["TransportistaID"]) : (int?)null;
+            ClienteID = SelectedPedido["ClienteID"] != DBNull.Value
+                ? Convert.ToInt32(SelectedPedido["ClienteID"])
+                : (int?)null;
+
+            EmpleadoID = SelectedPedido["EmpleadoID"] != DBNull.Value
+                ? Convert.ToInt32(SelectedPedido["EmpleadoID"])
+                : (int?)null;
+
+            TransportistaID = SelectedPedido["TransportistaID"] != DBNull.Value
+                ? Convert.ToInt32(SelectedPedido["TransportistaID"])
+                : (int?)null;
 
             FechaPedido = Convert.ToDateTime(SelectedPedido["FechaPedido"]);
-            FechaRequerida = SelectedPedido["FechaRequerida"] != DBNull.Value ? Convert.ToDateTime(SelectedPedido["FechaRequerida"]) : (DateTime?)null;
-            FechaEnvio = SelectedPedido["FechaEnvio"] != DBNull.Value ? Convert.ToDateTime(SelectedPedido["FechaEnvio"]) : (DateTime?)null;
+
+            FechaRequerida = SelectedPedido["FechaRequerida"] != DBNull.Value
+                ? Convert.ToDateTime(SelectedPedido["FechaRequerida"])
+                : (DateTime?)null;
+
+            FechaEnvio = SelectedPedido["FechaEnvio"] != DBNull.Value
+                ? Convert.ToDateTime(SelectedPedido["FechaEnvio"])
+                : (DateTime?)null;
 
             Destinatario = SelectedPedido["Destinatario"]?.ToString() ?? string.Empty;
             CiudadDestino = SelectedPedido["CiudadDestino"]?.ToString() ?? string.Empty;
             PaisDestino = SelectedPedido["PaisDestino"]?.ToString() ?? string.Empty;
+
+            // ✅ FORZAR actualización de los ComboBox y campos
+            OnPropertyChanged(nameof(ClienteID));
+            OnPropertyChanged(nameof(EmpleadoID));
+            OnPropertyChanged(nameof(TransportistaID));
+            OnPropertyChanged(nameof(FechaPedido));
+            OnPropertyChanged(nameof(FechaRequerida));
+            OnPropertyChanged(nameof(FechaEnvio));
+            OnPropertyChanged(nameof(Destinatario));
+            OnPropertyChanged(nameof(CiudadDestino));
+            OnPropertyChanged(nameof(PaisDestino));
         }
 
         private void Limpiar()

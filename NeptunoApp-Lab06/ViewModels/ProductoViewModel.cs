@@ -40,8 +40,35 @@ namespace NeptunoApp_Lab06.ViewModels
         public DataTable ProductosDT { get => _productosDT; set { _productosDT = value; OnPropertyChanged(); } }
         public DataRowView SelectedProducto { get => _selectedProducto; set { _selectedProducto = value; OnPropertyChanged(); if (value != null) CargarFormulario(); } }
         public string NombreProducto { get => _nombreProducto; set { _nombreProducto = value; OnPropertyChanged(); } }
-        public decimal PrecioUnidad { get => _precioUnidad; set { _precioUnidad = value; OnPropertyChanged(); } }
-        public short UnidadesEnExistencia { get => _unidadesEnExistencia; set { _unidadesEnExistencia = value; OnPropertyChanged(); } }
+        public decimal PrecioUnidad
+        {
+            get => _precioUnidad;
+            set
+            {
+                if (value < 0)
+                {
+                    MessageBox.Show("El precio no puede ser negativo.", "Valor inválido", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+                _precioUnidad = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public short UnidadesEnExistencia
+        {
+            get => _unidadesEnExistencia;
+            set
+            {
+                if (value < 0)
+                {
+                    MessageBox.Show("El stock no puede ser negativo.", "Valor inválido", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+                _unidadesEnExistencia = value;
+                OnPropertyChanged();
+            }
+        }
         public string CantidadPorUnidad { get => _cantidadPorUnidad; set { _cantidadPorUnidad = value; OnPropertyChanged(); } }
 
         
